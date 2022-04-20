@@ -61,15 +61,10 @@ namespace ShrinkMe
         [HarmonyPatch(typeof(ObjectDB), nameof(ObjectDB.Awake))]
         public class DBPatch
         {
-            public static void Prefix(ObjectDB __instance)
+            public static void Postfix(ObjectDB __instance)
             {
                 if (__instance.m_StatusEffects.Count <= 0) return;
                 __instance.m_StatusEffects.Add(ShrinkStat);
-                
-            }
-
-            public static void Postfix()
-            {
                 var itemtoadd = HaldorPipe?.Prefab;
                 itemtoadd!.GetComponent<ItemDrop>().m_itemData.m_shared.m_equipStatusEffect = ShrinkStat;
             }
