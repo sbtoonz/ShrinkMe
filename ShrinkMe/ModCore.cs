@@ -3,16 +3,20 @@ using BepInEx;
 using BepInEx.Configuration;
 using HarmonyLib;
 using ServerSync;
+using UnityEngine;
 
-namespace ModFrame
+namespace ShrinkMe
 {
     [BepInPlugin(ModGUID, ModName, ModVersion)]
-    public class NewMod : BaseUnityPlugin
+    public class ShrinkMe : BaseUnityPlugin
     {
-        private const string ModName = "New Mod";
-        private const string ModVersion = "1.0";
-        private const string ModGUID = "some.new.guid";
+        private const string ModName = "ShrinkMe";
+        private const string ModVersion = "0.0.0.1";
+        private const string ModGUID = "com.zarboz.ShrinkMe";
         private static Harmony harmony = null!;
+
+        internal static SE_Stats? ShrinkStat;
+        
         ConfigSync configSync = new(ModGUID) 
             { DisplayName = ModName, CurrentVersion = ModVersion, MinimumRequiredVersion = ModVersion};
         internal static ConfigEntry<bool> ServerConfigLocked = null!;
@@ -33,6 +37,17 @@ namespace ModFrame
             harmony.PatchAll(assembly);
             ServerConfigLocked = config("1 - General", "Lock Configuration", true, "If on, the configuration is locked and can be changed by server admins only.");
             configSync.AddLockingConfigEntry(ServerConfigLocked);
+            ShrinkStat = ScriptableObject.CreateInstance<SE_Shrink>();
+        }
+
+        [HarmonyPatch(typeof(ObjectDB), nameof(ObjectDB.Awake))]
+        public class DBPatch
+        {
+            public static void Prefix(ObjectDB __instance)
+            {
+                if (__instance.m_StatusEffects.Count <= 0) return;
+                __instance.m_StatusEffects.Add(ShrinkStat);
+            }
         }
     }
 }

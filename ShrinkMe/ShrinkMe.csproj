@@ -7,9 +7,9 @@
     <ProjectGuid>{F9B815D6-6EF4-44DB-9A0F-436849B24670}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ModFrame</RootNamespace>
-    <AssemblyName>ModFrame</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <RootNamespace>ShrinkMe</RootNamespace>
+    <AssemblyName>ShrinkMe</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <LangVersion>9</LangVersion>
 	<Nullable>enable</Nullable>
@@ -81,6 +81,7 @@
   <ItemGroup>
     <Compile Include="ModCore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SE_Shrink.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ServerSync\ServerSync.csproj">
