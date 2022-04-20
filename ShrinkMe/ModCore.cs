@@ -55,6 +55,7 @@ namespace ShrinkMe
             biggestsize = config("1 - General", "Biggest Size", 1.75f, new ConfigDescription("This is how big you can go when you land your lucky number", new AcceptableValueList<float>(1.5f, 2.25f)));
             luckyno = config("1 - General", "Lucky number", 6, new ConfigDescription("When this nunber is rolled you get to be big instead of small"));
             ShrinkStat = ScriptableObject.CreateInstance<SE_Shrink>();
+            configSync.AddLockingConfigEntry(ServerConfigLocked);
         }
 
         [HarmonyPatch(typeof(ObjectDB), nameof(ObjectDB.Awake))]
