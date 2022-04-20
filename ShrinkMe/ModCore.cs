@@ -17,7 +17,7 @@ namespace ShrinkMe
         private static Harmony harmony = null!;
 
         internal static SE_Stats? ShrinkStat;
-        internal static Item HaldorPipe;
+        internal static Item? HaldorPipe;
         
         ConfigSync configSync = new(ModGUID) 
             { DisplayName = ModName, CurrentVersion = ModVersion, MinimumRequiredVersion = ModVersion};
