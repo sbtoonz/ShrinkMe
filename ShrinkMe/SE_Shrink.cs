@@ -8,7 +8,7 @@ namespace ShrinkMe
         internal static int randomnum;
         public void OnEnable()
         {
-            m_name = "SE_Shrink";
+            m_name = "Haldors Pipe";
             m_icon = ShrinkMe.HaldorPipe?.Prefab.GetComponent<ItemDrop>().m_itemData.m_shared.m_icons.First();
             
         }
