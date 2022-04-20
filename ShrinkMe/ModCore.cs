@@ -47,6 +47,10 @@ namespace ShrinkMe
             {
                 if (__instance.m_StatusEffects.Count <= 0) return;
                 __instance.m_StatusEffects.Add(ShrinkStat);
+                //
+                if (__instance.m_items.Count <= 0 || __instance.GetItemPrefab("Amber") == null) return;
+                var itemtoadd = __instance.GetItemPrefab("putyourprefabnamehere");
+                itemtoadd.GetComponent<ItemDrop>().m_itemData.m_shared.m_equipStatusEffect = ShrinkStat;
             }
         }
     }
