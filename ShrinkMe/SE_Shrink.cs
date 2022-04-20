@@ -17,7 +17,9 @@ namespace ShrinkMe
             if (Player.m_localPlayer != null)
             {
                 var player = Player.m_localPlayer;
-                player.transform.Find("Visual").localScale = new Vector3(0.25f, 0.25f, 0.25f);
+                int dice = 12;
+                player.transform.Find("Visual").localScale = dice.RollDice() == 6 ? new Vector3(1.35f, 1.35f, 1.35f) : new Vector3(0.25f, 0.25f, 0.25f);
+                
             }
             base.UpdateStatusEffect(dt);
         }

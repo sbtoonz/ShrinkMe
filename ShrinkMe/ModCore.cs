@@ -2,6 +2,7 @@
 using BepInEx;
 using BepInEx.Configuration;
 using HarmonyLib;
+using ItemManager;
 using ServerSync;
 using UnityEngine;
 
@@ -16,6 +17,7 @@ namespace ShrinkMe
         private static Harmony harmony = null!;
 
         internal static SE_Stats? ShrinkStat;
+        internal static Item HaldorPipe;
         
         ConfigSync configSync = new(ModGUID) 
             { DisplayName = ModName, CurrentVersion = ModVersion, MinimumRequiredVersion = ModVersion};
@@ -38,6 +40,16 @@ namespace ShrinkMe
             ServerConfigLocked = config("1 - General", "Lock Configuration", true, "If on, the configuration is locked and can be changed by server admins only.");
             configSync.AddLockingConfigEntry(ServerConfigLocked);
             ShrinkStat = ScriptableObject.CreateInstance<SE_Shrink>();
+            HaldorPipe = new("odinspipe", "HaldorsMagicPipe");           //add item
+            HaldorPipe.Crafting.Add(CraftingTable.Forge, 2);
+            HaldorPipe.Name.English("HaldorsMagicPipe");
+            HaldorPipe.Description.English("Haldor must have dropped this, wonder what it does.");
+            HaldorPipe.RequiredItems.Add("Wood", 1);
+            HaldorPipe.RequiredItems.Add("BlackMetal", 8);
+            HaldorPipe.RequiredUpgradeItems.Add("Wood", 6);
+            HaldorPipe.RequiredUpgradeItems.Add("BlackMetal", 6);
+            HaldorPipe.CraftAmount = 1;
+            
         }
 
         [HarmonyPatch(typeof(ObjectDB), nameof(ObjectDB.Awake))]
@@ -47,9 +59,7 @@ namespace ShrinkMe
             {
                 if (__instance.m_StatusEffects.Count <= 0) return;
                 __instance.m_StatusEffects.Add(ShrinkStat);
-                //
-                if (__instance.m_items.Count <= 0 || __instance.GetItemPrefab("Amber") == null) return;
-                var itemtoadd = __instance.GetItemPrefab("putyourprefabnamehere");
+                var itemtoadd = HaldorPipe.Prefab;
                 itemtoadd.GetComponent<ItemDrop>().m_itemData.m_shared.m_equipStatusEffect = ShrinkStat;
             }
         }

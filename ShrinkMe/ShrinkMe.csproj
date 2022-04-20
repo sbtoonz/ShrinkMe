@@ -82,8 +82,13 @@
     <Compile Include="ModCore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SE_Shrink.cs" />
+    <Compile Include="ShrinkUtils.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ItemManager\ItemManager\ItemManager.csproj">
+      <Project>{5a0ffa8c-303e-4bf3-8903-d44154861382}</Project>
+      <Name>ItemManager</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ServerSync\ServerSync.csproj">
       <Project>{e16c3332-50b4-4da6-9e8a-a590c4e5cd49}</Project>
       <Name>ServerSync</Name>
@@ -93,6 +98,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="assets\odinspipe" />
     <Content Include="ILRepack.targets" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

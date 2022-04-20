@@ -1,3 +1,6 @@
 [submodule "ServerSync"]
 	path = ServerSync
 	url = https://github.com/blaxxun-boop/ServerSync.git
+[submodule "ItemManager"]
+	path = ItemManager
+	url = https://github.com/blaxxun-boop/ItemManager.git
