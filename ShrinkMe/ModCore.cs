@@ -41,7 +41,6 @@ namespace ShrinkMe
             harmony = new(ModGUID);
             harmony.PatchAll(assembly);
             ServerConfigLocked = config("1 - General", "Lock Configuration", true, "If on, the configuration is locked and can be changed by server admins only.");
-            configSync.AddLockingConfigEntry(ServerConfigLocked);
             HaldorPipe = new("odinspipe", "HaldorsMagicPipe");           //add item
             HaldorPipe.Crafting.Add(CraftingTable.Forge, 2);
             HaldorPipe.Name.English("HaldorsMagicPipe");
