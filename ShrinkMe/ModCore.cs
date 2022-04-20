@@ -49,7 +49,6 @@ namespace ShrinkMe
             HaldorPipe.RequiredUpgradeItems.Add("Wood", 6);
             HaldorPipe.RequiredUpgradeItems.Add("BlackMetal", 6);
             HaldorPipe.CraftAmount = 1;
-            
         }
 
         [HarmonyPatch(typeof(ObjectDB), nameof(ObjectDB.Awake))]
@@ -59,8 +58,13 @@ namespace ShrinkMe
             {
                 if (__instance.m_StatusEffects.Count <= 0) return;
                 __instance.m_StatusEffects.Add(ShrinkStat);
-                var itemtoadd = HaldorPipe.Prefab;
-                itemtoadd.GetComponent<ItemDrop>().m_itemData.m_shared.m_equipStatusEffect = ShrinkStat;
+                
+            }
+
+            public static void Postfix()
+            {
+                var itemtoadd = HaldorPipe?.Prefab;
+                itemtoadd!.GetComponent<ItemDrop>().m_itemData.m_shared.m_equipStatusEffect = ShrinkStat;
             }
         }
     }

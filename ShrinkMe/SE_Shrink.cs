@@ -1,24 +1,31 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 namespace ShrinkMe
 {
     public class SE_Shrink : SE_Stats
     {
+        internal static int randomnum;
         public void OnEnable()
         {
             m_name = "SE_Shrink";
-            m_ttl = 30;
-            m_cooldown = 60;
+            m_icon = ShrinkMe.HaldorPipe?.Prefab.GetComponent<ItemDrop>().m_itemData.m_shared.m_icons.First();
+            
         }
 
+        public override void Setup(Character character)
+        {
+            int dice = 12;
+            randomnum = dice.RollDice();
+            base.Setup(character);
+        }
 
         public override void UpdateStatusEffect(float dt)
         {
             if (Player.m_localPlayer != null)
             {
                 var player = Player.m_localPlayer;
-                int dice = 12;
-                player.transform.Find("Visual").localScale = dice.RollDice() == 6 ? new Vector3(1.35f, 1.35f, 1.35f) : new Vector3(0.25f, 0.25f, 0.25f);
+                player.transform.Find("Visual").localScale = randomnum == 6 ? new Vector3(1.65f, 1.65f, 1.65f) : new Vector3(0.25f, 0.25f, 0.25f);
                 
             }
             base.UpdateStatusEffect(dt);
