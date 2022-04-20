@@ -18,7 +18,10 @@ namespace ShrinkMe
 
         internal static SE_Stats? ShrinkStat;
         internal static Item? HaldorPipe;
-        
+        internal static ConfigEntry<float> smallestshrink;
+        internal static ConfigEntry<float> biggestsize;
+        internal static ConfigEntry<int> luckyno;
+
         ConfigSync configSync = new(ModGUID) 
             { DisplayName = ModName, CurrentVersion = ModVersion, MinimumRequiredVersion = ModVersion};
         internal static ConfigEntry<bool> ServerConfigLocked = null!;
@@ -39,7 +42,6 @@ namespace ShrinkMe
             harmony.PatchAll(assembly);
             ServerConfigLocked = config("1 - General", "Lock Configuration", true, "If on, the configuration is locked and can be changed by server admins only.");
             configSync.AddLockingConfigEntry(ServerConfigLocked);
-            ShrinkStat = ScriptableObject.CreateInstance<SE_Shrink>();
             HaldorPipe = new("odinspipe", "HaldorsMagicPipe");           //add item
             HaldorPipe.Crafting.Add(CraftingTable.Forge, 2);
             HaldorPipe.Name.English("HaldorsMagicPipe");
@@ -49,6 +51,10 @@ namespace ShrinkMe
             HaldorPipe.RequiredUpgradeItems.Add("Wood", 6);
             HaldorPipe.RequiredUpgradeItems.Add("BlackMetal", 6);
             HaldorPipe.CraftAmount = 1;
+            smallestshrink = config("1 - General", "Smallest size", 0.35f, new ConfigDescription("This is the smallest you can go 1.0 being normal and .35 being 35 perecent", new AcceptableValueList<float>(0.35f, 0.9f)));
+            biggestsize = config("1 - General", "Biggest Size", 1.75f, new ConfigDescription("This is how big you can go when you land your lucky number", new AcceptableValueList<float>(1.5f, 2.25f)));
+            luckyno = config("1 - General", "Lucky number", 6, new ConfigDescription("When this nunber is rolled you get to be big instead of small"));
+            ShrinkStat = ScriptableObject.CreateInstance<SE_Shrink>();
         }
 
         [HarmonyPatch(typeof(ObjectDB), nameof(ObjectDB.Awake))]

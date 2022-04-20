@@ -25,7 +25,7 @@ namespace ShrinkMe
             if (Player.m_localPlayer != null)
             {
                 var player = Player.m_localPlayer;
-                player.transform.Find("Visual").localScale = randomnum == 6 ? new Vector3(1.65f, 1.65f, 1.65f) : new Vector3(0.25f, 0.25f, 0.25f);
+                player.transform.Find("Visual").localScale = randomnum == ShrinkMe.luckyno.Value ? new Vector3(ShrinkMe.biggestsize.Value, ShrinkMe.biggestsize.Value, ShrinkMe.biggestsize.Value) : new Vector3(ShrinkMe.smallestshrink.Value, ShrinkMe.smallestshrink.Value, ShrinkMe.smallestshrink.Value);
                 
             }
             base.UpdateStatusEffect(dt);
